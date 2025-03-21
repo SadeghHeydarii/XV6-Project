@@ -15,3 +15,8 @@ mkfs
 kernel/kernel
 user/usys.S
 .gdbinit
+"xv6-riscv/.vscode/" 
+"xv6-riscv/*.o" 
+"xv6-riscv/*.d" 
+"xv6-riscv/kernel" 
+"xv6-riscv/user/_*" 
