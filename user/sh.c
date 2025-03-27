@@ -74,8 +74,13 @@ runcmd(struct cmd *cmd)
 
   case EXEC:
     ecmd = (struct execcmd*)cmd;
-    if(ecmd->argv[0] == 0)
-      exit(1);
+    if (ecmd->argv[0] && strcmp(ecmd->argv[0], "!") == 0) {
+    for (int i = 1; ecmd->argv[i]; i++) {
+        fprintf(2, "%s ", ecmd->argv[i]);
+      }
+    fprintf(2, "\n");
+    exit(0);
+    }
     exec(ecmd->argv[0], ecmd->argv);
     fprintf(2, "exec %s failed\n", ecmd->argv[0]);
     break;
