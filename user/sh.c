@@ -75,11 +75,30 @@ runcmd(struct cmd *cmd)
   case EXEC:
     ecmd = (struct execcmd*)cmd;
     if (ecmd->argv[0] && strcmp(ecmd->argv[0], "!") == 0) {
-    for (int i = 1; ecmd->argv[i]; i++) {
-        fprintf(2, "%s ", ecmd->argv[i]);
+      int size = 1;
+      for (int i = 1; ecmd->argv[i]; i++) {
+        size += strlen(ecmd->argv[i]);
       }
-    fprintf(2, "\n");
-    exit(0);
+      if(size > 512){
+        fprintf(2, "Message too long");
+      }
+      else{
+        for (int i = 1; ecmd->argv[i]; i++) {
+          char *str = ecmd->argv[i];
+          
+          for (int j = 0; str[j] != '\0'; j++) { 
+              if (str[j] == 'o' && str[j+1] == 's' && str[j+1] != '\0') {  
+                  fprintf(2, "\033[34mos\033[0m");
+                  j++;
+              } else {
+                  write(2, &str[j], 1);
+              }
+          }
+          fprintf(2, " ");  
+        }
+      }
+      fprintf(2, "\n");
+      exit(0);
     }
     exec(ecmd->argv[0], ecmd->argv);
     fprintf(2, "exec %s failed\n", ecmd->argv[0]);
@@ -139,7 +158,7 @@ runcmd(struct cmd *cmd)
 int
 getcmd(char *buf, int nbuf)
 {
-  write(2, "$sadegh_raeen", 14);
+  write(2, "$sadegh_raeen ", 15);
   memset(buf, 0, nbuf);
   gets(buf, nbuf);
   if(buf[0] == 0) // EOF
