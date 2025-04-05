@@ -3,14 +3,18 @@
 #include "memlayout.h"
 #include "riscv.h"
 #include "defs.h"
+#include "custom_logger.h"
 
 volatile static int started = 0;
 
 // start() jumps here in supervisor mode on all CPUs.
 void
 main()
-{
+{ 
   if(cpuid() == 0){
+    log_message(INFO, "Welcome to AUT MCS Principles of Operating Systems Course. This message is from student_number_1 and student_number_2");
+    log_message(WARN, "This is a test warning message for the custom logger");
+    log_message(ERROR, "This is a test error message for the custom logger");
     consoleinit();
     printfinit();
     printf("\n");
@@ -41,5 +45,5 @@ main()
     plicinithart();   // ask PLIC for device interrupts
   }
 
-  scheduler();        
+  scheduler(); 
 }
