@@ -12,7 +12,7 @@ void
 main()
 { 
   if(cpuid() == 0){
-    log_message(INFO, "Welcome to AUT MCS Principles of Operating Systems Course. This message is from student_number_1 and student_number_2");
+    log_message(INFO, "Welcome to AUT MCS Principles of Operating Systems Course. This message is from a custom logger implemented by 40213011 and 40213019");
     log_message(WARN, "This is a test warning message for the custom logger");
     log_message(ERROR, "This is a test error message for the custom logger");
     consoleinit();
